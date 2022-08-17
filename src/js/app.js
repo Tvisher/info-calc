@@ -9,8 +9,14 @@ $(document).ready(function () {
     const cuttingLength = document.querySelector('#cuttingLength');
     const punchingCount = document.querySelector('#punchingCount');
 
+    const locationUrl = location.href;
 
-    fetch('../files/db.json')
+    fetch(`${locationUrl}files/db.json`, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        }
+    })
         .then((response) => {
             return response.json();
         })
