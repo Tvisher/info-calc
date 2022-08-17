@@ -1,0 +1,86 @@
+{
+"materials": {
+    "ferrous-metal": {
+        "name":"Чермет",
+        "thickness": {
+            "2":{
+                "cutting":"150",
+                "punching":"10"
+            },
+            "3":{
+                "cutting":"200",
+                "punching":"20"
+            },
+            "4":{
+                "cutting":"250",
+                "punching":"30"
+            },
+            "5":{
+                "cutting":"300",
+                "punching":"40"
+            },
+            "6":{
+                "cutting":"350",
+                "punching":"50"
+            },
+            "8":{
+                "cutting":"400",
+                "punching":"60"
+            },
+            "10":{
+                "cutting":"500",
+                "punching":"70"
+            },
+            "12":{
+                "cutting":"600",
+                "punching":"80"
+            },
+            "14":{
+                "cutting":"800",
+                "punching":"90"
+            },
+            "16":{
+                "cutting":"1000",
+                "punching":"100"
+            },
+            "20":{
+                "cutting":"1200",
+                "punching":"120"
+            }
+        }
+    },
+    "cuprum": {
+        "name":"Медь",
+        "thickness": {
+            "2":{
+                "cutting":"150",
+                "punching":"10"
+            },
+            "3":{
+                "cutting":"200",
+                "punching":"20"
+            },
+            "4":{
+                "cutting":"250",
+                "punching":"30"
+            },
+            "5":{
+                "cutting":"300",
+                "punching":"40"
+            },
+            "6":{
+                "cutting":"350",
+                "punching":"50"
+            },
+            "8":{
+                "cutting":"400",
+                "punching":"60"
+            },
+            "10":{
+                "cutting":"500",
+                "punching":"70"
+            }
+        }
+    }
+}
+}

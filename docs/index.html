@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitename</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/main.min.css">
+    <script> </script>
+</head>
+
+<body>
+    <header> </header>
+
+    <main>
+        <section class="calc">
+            <div class="calc__frame"></div>
+            <div class="calc__content">
+                <div class="container">
+                    <div class="calc__inner">
+                        <div class="calc__logo">
+                            <img src="img/logo.svg" alt="">
+                        </div>
+                        <h1 class="calc__title">Просчет лазерной <span>резки металла</span></h1>
+
+                        <select id="metalType"></select>
+                        <input type="hidden" value="" id="metalTypeInput" data-calculation-field>
+
+                        <select id="thicknessSharpness"></select>
+                        <input type="hidden" value="" id="thicknessSharpnessInput" data-calculation-field>
+
+                        <label class="styles-input">
+                            <input type="number" data-styles-field id="cuttingLength" placeholder=" " data-calculation-field>
+                            <span class="styles-text">Длинна реза металла (в метрах)</span>
+                        </label>
+                        <label class="styles-input">
+                            <input type="number" data-styles-field id="punchingCount" placeholder=" " data-calculation-field>
+                            <span class="styles-text">Пробивка (в точках)</span>
+                        </label>
+                        <label class="togler">
+                            <input type="checkbox" id="isRegularCustomer">
+                            <span class="togler__text unselectable">Постоянный клиент</span>
+                        </label>
+
+                        <div class="total-value-block">
+                            <div>Итого:<span data-value-elem>0</span>₸</div>
+                        </div>
+                        <button class="reset-btn" id="resetСalculation">Сбросить расчет</button>
+                        <div class="calc__descr">не забудьте предупредить клиента о В своём стремлении повысить качество жизни, они забывают, что базовый вектор развития напрямую зависит от стандартных подходов.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer> </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="./js/app.min.js"></script>
+
+</html>
