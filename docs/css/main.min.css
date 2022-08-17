@@ -521,6 +521,7 @@ button {
 }
 
 .styles-input .styles-text {
+  pointer-events: none;
   position: absolute;
   left: 32px;
   top: 50%;

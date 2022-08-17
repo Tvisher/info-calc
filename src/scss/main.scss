@@ -289,6 +289,7 @@ li {
   background: #17171a;
   position: relative;
   .styles-text {
+    pointer-events: none;
     position: absolute;
     left: 32px;
     top: 50%;
