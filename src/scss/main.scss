@@ -386,6 +386,8 @@ input[type="number"]:focus {
 .total-value-block {
   display: flex;
   flex-direction: column;
+  line-height: 120%;
+  gap: 8px;
   &:after {
     display: block;
     content: "";
@@ -401,12 +403,13 @@ input[type="number"]:focus {
   display: flex;
   [data-value-elem] {
     display: inline;
-    margin: 0px 8px;
     font-weight: 700;
     color: $brand-green;
+    line-height: 120%;
   }
   .block__w {
     display: flex;
+    gap: 8px;
     flex-wrap: wrap;
   }
 }

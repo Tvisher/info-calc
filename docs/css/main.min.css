@@ -625,6 +625,8 @@ input[type=number]:focus {
 .total-value-block {
   display: flex;
   flex-direction: column;
+  line-height: 120%;
+  gap: 8px;
   font-weight: 400;
   font-size: 30px;
   display: flex;
@@ -643,13 +645,14 @@ input[type=number]:focus {
 
 .total-value-block [data-value-elem] {
   display: inline;
-  margin: 0px 8px;
   font-weight: 700;
   color: rgb(66, 200, 66);
+  line-height: 120%;
 }
 
 .total-value-block .block__w {
   display: flex;
+  gap: 8px;
   flex-wrap: wrap;
 }
 

@@ -13,6 +13,7 @@ $(document).ready(function () {
     const resContainer = document.querySelector('[data-value-elem]');
 
     var discountPresent = 0;
+    var minPrice = 0;
 
     const locationUrl = location.href;
     fetch(`${locationUrl}files/db.json`, {
@@ -26,8 +27,10 @@ $(document).ready(function () {
         })
         .then((data) => {
             discountPresent = +data.discountPresent;
+            minPrice = +data.minPrice
             const materials = data.materials;
             disabledInputs();
+            resContainer.innerHTML = minPrice;
             createTypeOptions(materials);
         });
 
@@ -47,7 +50,7 @@ $(document).ready(function () {
         //Отрисовка селекта с толщинами метала
         createSizesSelect(true);
         $('#metalType').on("select2:select", function (e) {
-            resContainer.innerHTML = '0';
+            resContainer.innerHTML = minPrice;
             const currentMetal = e.params.data.id;
             const currentMetalSizes = data[currentMetal].thickness;
             disabledInputs();
@@ -110,18 +113,38 @@ $(document).ready(function () {
         const result = cuttingRes + punchingRes;
         const discount = (isRegularCustomer.checked && typeof discountPresent === 'number') ? discountPresent : 0;
         const resultWithDiscount = Math.round(result - ((result / 100) * discount));
-        resContainer.innerHTML = resultWithDiscount ? +resultWithDiscount : 0;
+        let resValue = resultWithDiscount ? +resultWithDiscount : 0;
+
+        resValue = resValue > minPrice ? resValue : resValue = minPrice;
+
+        if (isRegularCustomer.checked && result && resValue > minPrice) {
+            resContainer.innerHTML = `${result} - ${((result / 100) * discount)} = ${resValue}`;
+        } else {
+            resContainer.innerHTML = resValue;
+        }
+
     }
 
     // Прослушка событий ввода в инпуты
     document.querySelectorAll('[data-styles-field]').forEach(input => {
         input.addEventListener('input', function (e) {
-            if (this.value.match(/[^0-9]/g)) {
-                this.value = this.value.replace(/[^0-9]/g, "");
+            if (this.id === 'punchingCount') {
+                if (this.value.match(/[^0-9]/g)) {
+                    this.value = this.value.replace(/[^0-9]/g, "");
+                }
+            }
+            else {
+                this.value = this.value.replace(/[^\d\.,]/g, "");
+                this.value = this.value.replace(/,/g, ".");
+                if (this.value.match(/\./g) && (this.value.match(/\./g).length > 1)) {
+                    this.value = this.value.substr(0, this.value.lastIndexOf("."));
+                }
             }
             makeСalculation();
         });
     });
+
+
     // проверка на включеную скидку
     isRegularCustomer.addEventListener('change', (e) => {
         makeСalculation();

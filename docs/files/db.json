@@ -1,85 +1,98 @@
 {
-    "discountPresent":"50",
+    "minPrice":"3000",
+    "discountPresent":"10",
     "materials": {
         "ferrous-metal": {
-            "name":"Чермет",
+            "name":"Чёрная сталь",
             "thickness": {
                 "2":{
-                    "cutting":"150",
+                    "cutting":"200",
                     "punching":"10"
                 },
                 "3":{
-                    "cutting":"200",
+                    "cutting":"250",
                     "punching":"20"
                 },
                 "4":{
-                    "cutting":"250",
+                    "cutting":"300",
                     "punching":"30"
                 },
                 "5":{
-                    "cutting":"300",
+                    "cutting":"350",
                     "punching":"40"
                 },
                 "6":{
-                    "cutting":"350",
+                    "cutting":"450",
                     "punching":"50"
                 },
                 "8":{
-                    "cutting":"400",
+                    "cutting":"500",
                     "punching":"60"
                 },
                 "10":{
-                    "cutting":"500",
+                    "cutting":"600",
                     "punching":"70"
                 },
                 "12":{
-                    "cutting":"600",
+                    "cutting":"800",
                     "punching":"80"
                 },
                 "14":{
-                    "cutting":"800",
+                    "cutting":"900",
                     "punching":"90"
                 },
                 "16":{
-                    "cutting":"1000",
+                    "cutting":"1100",
                     "punching":"100"
                 },
                 "20":{
-                    "cutting":"1200",
+                    "cutting":"1300",
                     "punching":"120"
+                },
+                "25":{
+                    "cutting":"2500",
+                    "punching":"250"
                 }
             }
         },
-        "cuprum": {
-            "name":"Медь",
+        "stainless-steel": {
+            "name":"Нержавеющая сталь",
             "thickness": {
-                "2":{
-                    "cutting":"150",
+                "1":{
+                    "cutting":"200",
                     "punching":"10"
                 },
-                "3":{
-                    "cutting":"200",
+                "2":{
+                    "cutting":"250",
                     "punching":"20"
                 },
-                "4":{
-                    "cutting":"250",
+                "3":{
+                    "cutting":"350",
                     "punching":"30"
                 },
-                "5":{
-                    "cutting":"300",
+                "4":{
+                    "cutting":"450",
                     "punching":"40"
                 },
-                "6":{
-                    "cutting":"350",
-                    "punching":"50"
-                },
-                "8":{
-                    "cutting":"400",
+                "5":{
+                    "cutting":"550",
                     "punching":"60"
                 },
-                "10":{
-                    "cutting":"500",
+                "6":{
+                    "cutting":"700",
                     "punching":"70"
+                },
+                "8":{
+                    "cutting":"900",
+                    "punching":"80"
+                },
+                "10":{
+                    "cutting":"1200",
+                    "punching":"100"
+                },
+                "12":{
+                    "cutting":"1500",
+                    "punching":"120"
                 }
             }
         }
