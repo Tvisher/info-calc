@@ -16,6 +16,7 @@ $(document).ready(function () {
     var minPrice = 0;
 
     const locationUrl = location.href;
+
     fetch(`${locationUrl}files/db.json`, {
         headers: {
             "Content-Type": "application/json",
