@@ -32,6 +32,7 @@ $(document).ready(function () {
             const materials = data.materials;
             disabledInputs();
             createTypeOptions(materials);
+            $('body').addClass('load');
         });
 
 
@@ -159,9 +160,7 @@ $(document).ready(function () {
     });
 });
 
-window.onload = (e) => {
-    $('body').addClass('load');
-}
+
 
 
 
