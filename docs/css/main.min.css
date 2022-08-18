@@ -762,8 +762,7 @@ input[type=number]:focus {
 }
 
 @media (max-width: 400px) {
-  .select2-container .select2-selection--single *,
-  .styles-input input {
+  .select2-container .select2-selection--single * {
     font-size: 14px;
   }
 }
