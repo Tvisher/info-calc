@@ -28,9 +28,9 @@ $(document).ready(function () {
         .then((data) => {
             discountPresent = +data.discountPresent;
             minPrice = +data.minPrice
+            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const materials = data.materials;
             disabledInputs();
-            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             createTypeOptions(materials);
         });
 
