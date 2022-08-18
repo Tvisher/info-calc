@@ -51,7 +51,7 @@ $(document).ready(function () {
         //Отрисовка селекта с толщинами метала
         createSizesSelect(true);
         $('#metalType').on("select2:select", function (e) {
-            resContainer.innerHTML = minPrice;
+            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const currentMetal = e.params.data.id;
             const currentMetalSizes = data[currentMetal].thickness;
             disabledInputs();
@@ -123,7 +123,6 @@ $(document).ready(function () {
         } else {
             resContainer.innerHTML = resValue.toLocaleString('ru-RU');
         }
-
     }
 
     // Прослушка событий ввода в инпуты
@@ -145,12 +144,10 @@ $(document).ready(function () {
         });
     });
 
-
     // проверка на включеную скидку
     isRegularCustomer.addEventListener('change', (e) => {
         makeСalculation();
     });
-
 
     // Сброс расчёта путём перезагрузки страницы
     const resetСalculationBtn = document.querySelector('#resetСalculation');
