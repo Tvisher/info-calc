@@ -510,6 +510,7 @@ button {
 }
 
 .styles-input {
+  border-radius: 123px;
   margin-bottom: 20px;
   background: #17171a;
   position: relative;
@@ -528,7 +529,6 @@ button {
   transform: translateY(-50%);
   color: #767676;
   transition: top 0.25s ease-in-out;
-  background: #17171a;
   padding: 0 5px;
   border-radius: 10px;
 }
@@ -540,11 +540,12 @@ button {
   padding: 22px 32px;
   width: 100%;
   color: #ffffff;
-  transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 [data-styles-field]:not(:placeholder-shown) ~ .styles-text,
 [data-styles-field]:focus ~ .styles-text {
+  background: #17171a;
   top: 0px;
   color: #a6aab1;
 }
@@ -645,6 +646,11 @@ input[type=number]:focus {
   margin: 0px 8px;
   font-weight: 700;
   color: rgb(66, 200, 66);
+}
+
+.total-value-block .block__w {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .reset-btn {

@@ -1,4 +1,5 @@
 {
+    "discountPresent":"50",
     "materials": {
         "ferrous-metal": {
             "name":"Чермет",
@@ -83,4 +84,4 @@
             }
         }
     }
-    }
+}

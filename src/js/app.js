@@ -9,8 +9,12 @@ $(document).ready(function () {
     const cuttingLength = document.querySelector('#cuttingLength');
     const punchingCount = document.querySelector('#punchingCount');
 
-    const locationUrl = location.href;
+    const isRegularCustomer = document.querySelector('#isRegularCustomer');
+    const resContainer = document.querySelector('[data-value-elem]');
 
+    var discountPresent = 0;
+
+    const locationUrl = location.href;
     fetch(`${locationUrl}files/db.json`, {
         headers: {
             "Content-Type": "application/json",
@@ -21,6 +25,7 @@ $(document).ready(function () {
             return response.json();
         })
         .then((data) => {
+            discountPresent = +data.discountPresent;
             const materials = data.materials;
             disabledInputs();
             createTypeOptions(materials);
@@ -39,9 +44,10 @@ $(document).ready(function () {
             placeholder: "Выбрать тип металла",
             minimumResultsForSearch: -1,
         });
-
+        //Отрисовка селекта с толщинами метала
         createSizesSelect(true);
         $('#metalType').on("select2:select", function (e) {
+            resContainer.innerHTML = '0';
             const currentMetal = e.params.data.id;
             const currentMetalSizes = data[currentMetal].thickness;
             disabledInputs();
@@ -64,8 +70,10 @@ $(document).ready(function () {
             const punchingPrice = sizes[size].punching;
             select.innerHTML += `<option data value="${cuttingPrice}, ${punchingPrice}">${size} мм</option>`;
         }
+        //Отрисовка селекта с толщинами метала
         createSizesSelect(false);
     }
+
     // генирация опций толщины метала 
     function createSizesSelect(isDisable) {
         const disableClass = isDisable ? "disabled-field" : '';
@@ -89,17 +97,36 @@ $(document).ready(function () {
 
             cuttingLength.closest('label').classList.remove('disabled-field');
             punchingCount.closest('label').classList.remove('disabled-field');
+            makeСalculation();
         });
     }
 
+    // Функция итогового подсчёта всех выбранных и введённых значений
+    function makeСalculation() {
+        const cuttingPrice = +thicknessSharpnessInput.dataset.cuttingPrice;
+        const punchingPrice = +thicknessSharpnessInput.dataset.punchingPrice;
+        const cuttingRes = cuttingPrice * +cuttingLength.value;
+        const punchingRes = punchingPrice * +punchingCount.value;
+        const result = cuttingRes + punchingRes;
+        const discount = (isRegularCustomer.checked && typeof discountPresent === 'number') ? discountPresent : 0;
+        const resultWithDiscount = Math.round(result - ((result / 100) * discount));
+        resContainer.innerHTML = resultWithDiscount ? +resultWithDiscount : 0;
+    }
 
+    // Прослушка событий ввода в инпуты
+    document.querySelectorAll('[data-styles-field]').forEach(input => {
+        input.addEventListener('input', function (e) {
+            if (this.value.match(/[^0-9]/g)) {
+                this.value = this.value.replace(/[^0-9]/g, "");
+            }
+            makeСalculation();
+        });
+    });
+    // проверка на включеную скидку
+    isRegularCustomer.addEventListener('change', (e) => {
+        makeСalculation();
+    });
 
-
-    // слежка за всеми инпутами
-    // document.querySelectorAll('[data-calculation-field]').forEach(field => {
-    //     field.addEventListener('input', (e) => {
-    //     });
-    // });
 
     // Сброс расчёта путём перезагрузки страницы
     const resetСalculationBtn = document.querySelector('#resetСalculation');
