@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     const isRegularCustomer = document.querySelector('#isRegularCustomer');
     const resContainer = document.querySelector('[data-value-elem]');
-
+    const discountPresentField = document.querySelector('#discountPresent');
     var discountPresent = 0;
     var minPrice = 0;
 
@@ -27,6 +27,7 @@ $(document).ready(function () {
         })
         .then((data) => {
             discountPresent = +data.discountPresent;
+            discountPresentField.innerHTML = `(скидка ${discountPresent}%)`;
             minPrice = +data.minPrice
             resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const materials = data.materials;
