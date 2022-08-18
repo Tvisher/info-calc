@@ -222,6 +222,7 @@ li {
 }
 .select2-selection__placeholder {
   transition: color 0.2s ease-in-out;
+  color: #fff !important;
 }
 
 .select2.select2-container.select2-container--default.select2-container--below.select2-container--focus.select2-container--open {
@@ -454,6 +455,10 @@ input[type="number"]:focus {
 .disabled-field {
   pointer-events: none;
   background: transparent !important;
+  opacity: 0.3;
+  .select2-selection__placeholder {
+    color: #999 !important;
+  }
 }
 
 // #metalType,
