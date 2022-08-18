@@ -30,7 +30,7 @@ $(document).ready(function () {
             minPrice = +data.minPrice
             const materials = data.materials;
             disabledInputs();
-            resContainer.innerHTML = minPrice;
+            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             createTypeOptions(materials);
         });
 
@@ -118,9 +118,9 @@ $(document).ready(function () {
         resValue = resValue > minPrice ? resValue : resValue = minPrice;
 
         if (isRegularCustomer.checked && result && resValue > minPrice) {
-            resContainer.innerHTML = `${result} - ${((result / 100) * discount)} = ${resValue}`;
+            resContainer.innerHTML = `${result.toLocaleString('ru-RU')} - ${((result / 100) * discount).toLocaleString('ru-RU')} = ${resValue.toLocaleString('ru-RU')}`;
         } else {
-            resContainer.innerHTML = resValue;
+            resContainer.innerHTML = resValue.toLocaleString('ru-RU');
         }
 
     }
