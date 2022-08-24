@@ -1,4 +1,7 @@
 'use strict';
+import * as baseFunction from './modules/functions.js';
+baseFunction.testWebP();
+
 $(document).ready(function () {
     const metalTypeSelect = document.querySelector('#metalType');
     const metalThicknessSelect = document.querySelector('#thicknessSharpness');
@@ -10,13 +13,22 @@ $(document).ready(function () {
     const punchingCount = document.querySelector('#punchingCount');
 
     const isRegularCustomer = document.querySelector('#isRegularCustomer');
+    const isMinPrice = document.querySelector('#isMinPrice');
+
     const resContainer = document.querySelector('[data-value-elem]');
+    const totalResContainer = document.querySelector('[data-total-result]');
     const discountPresentField = document.querySelector('#discountPresent');
+
+    const addСalculationBtn = document.querySelector('#addСalculationBtn');
+    const resultRenderContainer = document.querySelector('#resultRenderContainer');
+
+
     var discountPresent = 0;
     var minPrice = 0;
 
-    const locationUrl = location.href;
+    var fullSettlementList = [];
 
+    const locationUrl = location.href;
     fetch(`${locationUrl}files/db.json`, {
         headers: {
             "Content-Type": "application/json",
@@ -30,16 +42,15 @@ $(document).ready(function () {
             discountPresent = +data.discountPresent;
             discountPresentField.innerHTML = `(скидка ${discountPresent}%)`;
             minPrice = +data.minPrice
-            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const materials = data.materials;
             disabledInputs();
-            createTypeOptions(materials);
+            createTypesOptions(materials);
             $('body').addClass('load');
         });
 
 
     // Генерация типа металов
-    function createTypeOptions(data) {
+    function createTypesOptions(data) {
         metalTypeSelect.innerHTML = `<option value=""></option>`;
         for (let metalType in data) {
             const metal = metalType;
@@ -53,8 +64,9 @@ $(document).ready(function () {
         //Отрисовка селекта с толщинами метала
         createSizesSelect(true);
         $('#metalType').on("select2:select", function (e) {
-            resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
+            // resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const currentMetal = e.params.data.id;
+            metalTypeInput.value = data[currentMetal].name;
             const currentMetalSizes = data[currentMetal].thickness;
             disabledInputs();
             createThicknessOptions(metalThicknessSelect, currentMetalSizes);
@@ -92,23 +104,24 @@ $(document).ready(function () {
             selectionCssClass: disableClass
         });
         $('#thicknessSharpness').on("select2:select", function (e) {
-            const currentSize = e.params.data.id;
-
-            const cuttingPrice = currentSize.split(',')[0];
-            const punchingPrice = currentSize.split(',')[1];
+            const selectedData = e.params.data.id;
+            const selectedSize = e.params.data.text.replace(/[^0-9]/g, "");
+            const cuttingPrice = selectedData.split(',')[0];
+            const punchingPrice = selectedData.split(',')[1];
 
             thicknessSharpnessInput.setAttribute('data-cutting-price', cuttingPrice);
             thicknessSharpnessInput.setAttribute('data-punching-price', punchingPrice);
+            thicknessSharpnessInput.setAttribute('value', selectedSize);
 
 
             cuttingLength.closest('label').classList.remove('disabled-field');
             punchingCount.closest('label').classList.remove('disabled-field');
-            makeСalculation();
+            makeСalculationResult();
         });
     }
 
     // Функция итогового подсчёта всех выбранных и введённых значений
-    function makeСalculation() {
+    function makeСalculationResult(onlyReturn) {
         const cuttingPrice = +thicknessSharpnessInput.dataset.cuttingPrice;
         const punchingPrice = +thicknessSharpnessInput.dataset.punchingPrice;
         const cuttingRes = cuttingPrice * +cuttingLength.value;
@@ -118,13 +131,80 @@ $(document).ready(function () {
         const resultWithDiscount = Math.round(result - ((result / 100) * discount));
         let resValue = resultWithDiscount ? +resultWithDiscount : 0;
 
-        resValue = resValue > minPrice ? resValue : resValue = minPrice;
+        let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
 
-        if (isRegularCustomer.checked && result && resValue > minPrice) {
+        resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
+
+        if (isRegularCustomer.checked && result && resValue > minPriceForComputing) {
+            if (onlyReturn) {
+                return resValue;
+            }
             resContainer.innerHTML = `${result.toLocaleString('ru-RU')} - ${((result / 100) * discount).toLocaleString('ru-RU')} = ${resValue.toLocaleString('ru-RU')}`;
         } else {
+            if (onlyReturn) {
+                return resValue;
+            }
             resContainer.innerHTML = resValue.toLocaleString('ru-RU');
         }
+    }
+
+    function generateCalculationItem(dataObj) {
+        const { metalType,
+            metalThickness,
+            cuttingLength,
+            punchingCount,
+            isRegularCustomer,
+            withMinPrice,
+            id,
+            itemPrice } = dataObj;
+
+        const calculationItem = `
+                <li data-id="${id}" class="list-item" data-sale="${isRegularCustomer}" data-min-price="${withMinPrice}">
+                    <div class="list-item__head">
+                        <div class="list-item__block">
+                            <span class="list-item__nameplate">Наименование</span>
+                            <div class="list-item__data">${metalType}, ${metalThickness} мм</div>
+                        </div>
+                    </div>
+                    <div class="list-item__footer">
+                        <div class="list-item__block">
+                            <span class="list-item__nameplate">Длинна реза</span>
+                            <div class="list-item__data">${cuttingLength} м</div>
+                        </div>
+                        <div class="list-item__block">
+                            <span class="list-item__nameplate">Пробивка</span>
+                            <div class="list-item__data">${punchingCount} шт</div>
+                        </div>
+                        <div class="list-item__block">
+                            <span class="list-item__nameplate">Стоимость</span>
+                            <div class="list-item__data">${itemPrice.toLocaleString('ru-RU')} ₸</div>
+                        </div>
+                    </div>
+                    <button class="list-item__delete" data-delete-btn></button>
+                </li>`;
+        resultRenderContainer.innerHTML += calculationItem;
+    }
+
+    function collectDataFromFields(e) {
+        const itemId = Math.random().toString(36).substring(2, 9);
+        const calculationData = {
+            id: itemId,
+            metalType: metalTypeInput.value,
+            metalThickness: thicknessSharpnessInput.value,
+            cuttingLength: cuttingLength.value || 0,
+            punchingCount: punchingCount.value || 0,
+            isRegularCustomer: isRegularCustomer.checked,
+            withMinPrice: isMinPrice.checked,
+            itemPrice: makeСalculationResult(true),
+        }
+        fullSettlementList.push(calculationData);
+        getTotalResult(fullSettlementList);
+        generateCalculationItem(calculationData);
+    }
+
+    function getTotalResult(arr) {
+        const res = arr.reduce((sum, current) => sum + current.itemPrice, 0);
+        totalResContainer.innerHTML = res.toLocaleString('ru-RU');
     }
 
     // Прослушка событий ввода в инпуты
@@ -142,21 +222,31 @@ $(document).ready(function () {
                     this.value = this.value.substr(0, this.value.lastIndexOf("."));
                 }
             }
-            makeСalculation();
+            makeСalculationResult();
         });
     });
 
+    // Сбор данных из полей ввода для выгрузки в список
+    addСalculationBtn.addEventListener("click", collectDataFromFields);
+
     // проверка на включеную скидку
-    isRegularCustomer.addEventListener('change', (e) => {
-        makeСalculation();
+    isRegularCustomer.addEventListener('change', (e) => makeСalculationResult());
+
+    // проверка на включеную минимальную цену
+    isMinPrice.addEventListener('change', (e) => makeСalculationResult());
+
+
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+        if (target.closest('[data-delete-btn]')) {
+            const deletedItem = target.closest('.list-item');
+            const deletedItemId = deletedItem.dataset.id;
+            fullSettlementList = fullSettlementList.filter(item => item.id !== deletedItemId);
+            deletedItem.parentNode.removeChild(deletedItem);
+            getTotalResult(fullSettlementList);
+        }
     });
 
-    // Сброс расчёта путём перезагрузки страницы
-    const resetСalculationBtn = document.querySelector('#resetСalculation');
-    resetСalculationBtn.addEventListener("click", (e) => {
-        let isReset = confirm("Сбросить расчёт ?");
-        isReset && location.reload();
-    });
 });
 
 
