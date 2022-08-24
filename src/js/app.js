@@ -22,10 +22,8 @@ $(document).ready(function () {
     const addСalculationBtn = document.querySelector('#addСalculationBtn');
     const resultRenderContainer = document.querySelector('#resultRenderContainer');
 
-
     var discountPresent = 0;
     var minPrice = 0;
-
     var fullSettlementList = [];
 
     const locationUrl = location.href;
@@ -148,6 +146,7 @@ $(document).ready(function () {
         }
     }
 
+    // Функция отрисовки нового расчёта в списке расчётов
     function generateCalculationItem(dataObj) {
         const { metalType,
             metalThickness,
@@ -185,7 +184,8 @@ $(document).ready(function () {
         resultRenderContainer.innerHTML += calculationItem;
     }
 
-    function collectDataFromFields(e) {
+    // Функция сбора данных с полей ввода для расчёта
+    function collectDataFromFields() {
         const itemId = Math.random().toString(36).substring(2, 9);
         const calculationData = {
             id: itemId,
@@ -196,12 +196,11 @@ $(document).ready(function () {
             isRegularCustomer: isRegularCustomer.checked,
             withMinPrice: isMinPrice.checked,
             itemPrice: makeСalculationResult(true),
-        }
-        fullSettlementList.push(calculationData);
-        getTotalResult(fullSettlementList);
-        generateCalculationItem(calculationData);
+        };
+        return calculationData;
     }
 
+    // Вычисление и вывод итоговой суммы всех расчётов
     function getTotalResult(arr) {
         const res = arr.reduce((sum, current) => sum + current.itemPrice, 0);
         totalResContainer.innerHTML = res.toLocaleString('ru-RU');
@@ -227,7 +226,13 @@ $(document).ready(function () {
     });
 
     // Сбор данных из полей ввода для выгрузки в список
-    addСalculationBtn.addEventListener("click", collectDataFromFields);
+    addСalculationBtn.addEventListener("click", (e) => {
+        const calculationData = collectDataFromFields();
+
+        fullSettlementList.push(calculationData);
+        getTotalResult(fullSettlementList);
+        generateCalculationItem(calculationData);
+    });
 
     // проверка на включеную скидку
     isRegularCustomer.addEventListener('change', (e) => makeСalculationResult());
@@ -235,7 +240,7 @@ $(document).ready(function () {
     // проверка на включеную минимальную цену
     isMinPrice.addEventListener('change', (e) => makeСalculationResult());
 
-
+    // Обработка клика по кнопке удаления элемента из списка расчётов 
     document.addEventListener('click', function (e) {
         const target = e.target;
         if (target.closest('[data-delete-btn]')) {
@@ -246,7 +251,6 @@ $(document).ready(function () {
             getTotalResult(fullSettlementList);
         }
     });
-
 });
 
 
