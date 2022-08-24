@@ -300,43 +300,6 @@ li {
   max-width: 936px;
 }
 
-.btn {
-  font-size: 16px;
-  font-family: "Montserrat";
-  font-weight: 400;
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  justify-content: center;
-  padding: 22px 32px;
-  line-height: 140%;
-  cursor: pointer;
-  border-radius: 2px;
-  border: 2px solid transparent;
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-}
-
-.btn:active {
-  transform: translateY(2px);
-}
-
-.fillBtn {
-  background-color: #ddcfc6;
-  color: #343a45;
-}
-
-.ghostBtn {
-  background-color: transparent;
-  color: #ddcfc6;
-  border-color: #ddcfc6;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-}
-
 .section-title {
   font-size: 36px;
   font-weight: 400;
@@ -390,6 +353,10 @@ button {
   height: 100%;
   object-fit: contain;
   object-position: left;
+}
+
+.calc__outer-data .total-value-block {
+  font-size: 30px;
 }
 
 .calc__outer-data .calc__title::after {
@@ -503,6 +470,7 @@ button {
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #ffffff;
+  padding-left: 0;
 }
 
 .styles-input {
@@ -648,7 +616,7 @@ input[type=number]:focus {
   line-height: 120%;
   gap: 8px;
   font-weight: 400;
-  font-size: 30px;
+  font-size: 20px;
   display: flex;
 }
 
@@ -663,7 +631,8 @@ input[type=number]:focus {
   margin-top: 8px;
 }
 
-.total-value-block [data-value-elem] {
+.total-value-block [data-value-elem],
+.total-value-block [data-total-result] {
   display: inline;
   font-weight: 700;
   color: rgb(66, 200, 66);
@@ -676,7 +645,7 @@ input[type=number]:focus {
   flex-wrap: wrap;
 }
 
-.fill-btn {
+.btn {
   margin-bottom: 40px;
   cursor: pointer;
   padding: 24px 32px;
@@ -688,12 +657,17 @@ input[type=number]:focus {
   transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.fill-btn:hover {
+.btn:hover {
   color: #fff;
 }
 
-.fill-btn:active {
+.btn:active {
   box-shadow: 0px 0px 32px rgba(66, 200, 66, 0.7);
+}
+
+.btn.ghost {
+  background-color: transparent;
+  border: 1px solid rgb(66, 200, 66);
 }
 
 .calc__descr {
@@ -725,7 +699,7 @@ input[type=number]:focus {
 }
 
 .result-list {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   overflow-y: auto;
   max-height: 540px;
   height: 100%;
@@ -745,6 +719,7 @@ input[type=number]:focus {
 }
 
 .result-list .list-item__delete {
+  cursor: pointer;
   position: absolute;
   right: 0;
   top: 50%;
@@ -783,12 +758,15 @@ input[type=number]:focus {
 
 .result-list .list-item__footer {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
 .result-list .list-item__footer .list-item__data {
   font-weight: 500;
+}
+
+.result-list .list-item__footer .list-item__block {
+  flex: 1 0 calc(33.33% - 10px);
 }
 
 .result-list .list-item[data-sale=true] .list-item__head .list-item__data {
@@ -823,6 +801,11 @@ input[type=number]:focus {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.res-btns {
+  display: flex;
+  gap: 16px;
 }
 
 @media screen and (max-width: 768px) {

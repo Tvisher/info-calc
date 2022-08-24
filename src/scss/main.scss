@@ -158,8 +158,6 @@ li {
 }
 
 .calc__inner-data {
-  // width: 100%;
-  // padding: 30px 30px 0px 0px;
   padding-right: 30px;
   display: flex;
   flex-direction: column;
@@ -177,6 +175,9 @@ li {
   }
 }
 
+.calc__outer-data .total-value-block {
+  font-size: 30px;
+}
 .calc__outer-data .calc__title::after {
   display: none;
 }
@@ -291,6 +292,7 @@ li {
   .select2-selection--single
   .select2-selection__rendered {
   color: #ffffff;
+  padding-left: 0;
 }
 
 .styles-input {
@@ -431,6 +433,10 @@ input[type="number"]:focus {
   flex-direction: column;
   line-height: 120%;
   gap: 8px;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+
   &:after {
     display: block;
     content: "";
@@ -441,10 +447,8 @@ input[type="number"]:focus {
     background-size: contain;
     margin-top: 8px;
   }
-  font-weight: 400;
-  font-size: 30px;
-  display: flex;
-  [data-value-elem] {
+  [data-value-elem],
+  [data-total-result] {
     display: inline;
     font-weight: 700;
     color: $brand-green;
@@ -457,13 +461,12 @@ input[type="number"]:focus {
   }
 }
 
-.fill-btn {
+.btn {
   margin-bottom: 40px;
   cursor: pointer;
   padding: 24px 32px;
   color: #fff;
   background-color: $brand-green;
-  // background: #212124;
   border-radius: 8px;
   width: fit-content;
   margin-top: 30px;
@@ -474,6 +477,10 @@ input[type="number"]:focus {
   }
   &:active {
     box-shadow: 0px 0px 32px rgba(66, 200, 66, 0.7);
+  }
+  &.ghost {
+    background-color: transparent;
+    border: 1px solid $brand-green;
   }
 }
 
@@ -531,7 +538,7 @@ input[type="number"]:focus {
 }
 
 .result-list {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   overflow-y: auto;
   max-height: 540px;
   height: 100%;
@@ -548,6 +555,7 @@ input[type="number"]:focus {
   }
 
   .list-item__delete {
+    cursor: pointer;
     position: absolute;
     right: 0;
     top: 50%;
@@ -584,10 +592,13 @@ input[type="number"]:focus {
 
   .list-item__footer {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     gap: 10px;
     .list-item__data {
       font-weight: 500;
+    }
+    .list-item__block {
+      flex: 1 0 calc(33.33% - 10px);
     }
   }
 
@@ -624,4 +635,9 @@ input[type="number"]:focus {
       }
     }
   }
+}
+
+.res-btns {
+  display: flex;
+  gap: 16px;
 }
