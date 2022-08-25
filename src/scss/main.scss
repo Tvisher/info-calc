@@ -276,7 +276,7 @@ li {
 }
 
 .select2-results__option--selectable {
-  padding: 8px 32px;
+  padding: 5px 32px;
 }
 
 .select2-container--default
@@ -542,7 +542,11 @@ input[type="number"]:focus {
   }
 }
 
+// .www {
+//   overflow: hidden;
+// }
 .result-list {
+  padding-bottom: 40px;
   margin-bottom: 40px;
   overflow-y: auto;
   max-height: 540px;
@@ -597,7 +601,6 @@ input[type="number"]:focus {
 
   .list-item__footer {
     display: flex;
-    // justify-content: space-between;
     gap: 10px;
     .list-item__data {
       font-weight: 500;

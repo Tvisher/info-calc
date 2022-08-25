@@ -1,5 +1,7 @@
 'use strict';
 import * as baseFunction from './modules/functions.js';
+import callPrint from './print.js';
+import './vendors/vendors.js';
 baseFunction.testWebP();
 
 $(document).ready(function () {
@@ -21,6 +23,8 @@ $(document).ready(function () {
 
     const addСalculationBtn = document.querySelector('#addСalculationBtn');
     const resultRenderContainer = document.querySelector('#resultRenderContainer');
+
+    // OverlayScrollbars(resultRenderContainer, {});
 
     var discountPresent = 0;
     var minPrice = 0;
@@ -45,7 +49,6 @@ $(document).ready(function () {
             createTypesOptions(materials);
             $('body').addClass('load');
         });
-
 
     // Генерация типа металов
     function createTypesOptions(data) {
@@ -131,7 +134,7 @@ $(document).ready(function () {
         let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
         resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
         if (onlyReturn) {
-            clearValuesAfterCalculation();
+            // clearValuesAfterCalculation();
             return resValue;
         }
         if (cuttingRes > 0 || punchingRes > 0) {
@@ -264,6 +267,10 @@ $(document).ready(function () {
             deletedItem.parentNode.removeChild(deletedItem);
             getTotalResult(fullSettlementList);
         }
+    });
+
+    document.querySelector('#printBtn').addEventListener('click', (e) => {
+        callPrint(fullSettlementList);
     });
 });
 
