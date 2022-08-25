@@ -61,13 +61,13 @@ $(document).ready(function () {
         });
         //Отрисовка селекта с толщинами метала
         createSizesSelect(true);
+
         $('#metalType').on("select2:select", function (e) {
-            // resContainer.innerHTML = minPrice.toLocaleString('ru-RU');
             const currentMetal = e.params.data.id;
             metalTypeInput.value = data[currentMetal].name;
             const currentMetalSizes = data[currentMetal].thickness;
-            disabledInputs();
             createThicknessOptions(metalThicknessSelect, currentMetalSizes);
+            disabledInputs();
         });
     }
     // Отключить инпуты и обнулить их значения
@@ -125,25 +125,37 @@ $(document).ready(function () {
         const cuttingRes = cuttingPrice * +cuttingLength.value;
         const punchingRes = punchingPrice * +punchingCount.value;
         const result = cuttingRes + punchingRes;
-        const discount = (isRegularCustomer.checked && typeof discountPresent === 'number') ? discountPresent : 0;
+        const discount = isRegularCustomer.checked ? +discountPresent : 0;
         const resultWithDiscount = Math.round(result - ((result / 100) * discount));
         let resValue = resultWithDiscount ? +resultWithDiscount : 0;
-
         let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
-
         resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
+        if (onlyReturn) {
+            clearValuesAfterCalculation();
+            return resValue;
+        }
+        if (cuttingRes > 0 || punchingRes > 0) {
+            addСalculationBtn.classList.remove('disabled-btn')
+        } else {
+            addСalculationBtn.classList.add('disabled-btn')
+        }
 
-        if (isRegularCustomer.checked && result && resValue > minPriceForComputing) {
-            if (onlyReturn) {
-                return resValue;
-            }
+        if (isRegularCustomer.checked && result && (resValue > minPriceForComputing)) {
             resContainer.innerHTML = `${result.toLocaleString('ru-RU')} - ${((result / 100) * discount).toLocaleString('ru-RU')} = ${resValue.toLocaleString('ru-RU')}`;
         } else {
-            if (onlyReturn) {
-                return resValue;
-            }
             resContainer.innerHTML = resValue.toLocaleString('ru-RU');
         }
+    }
+
+    // Функция очистки полей ввода и селектов после выполнения расчёта
+    function clearValuesAfterCalculation() {
+        addСalculationBtn.classList.add('disabled-btn');
+        resContainer.innerHTML = 0;
+        isMinPrice.checked = false;
+        disabledInputs();
+        $('#metalType').val(null).trigger('change');
+        $('#thicknessSharpness').val(null).trigger('change');
+        createSizesSelect(true);
     }
 
     // Функция отрисовки нового расчёта в списке расчётов
@@ -207,8 +219,10 @@ $(document).ready(function () {
     }
 
     // Прослушка событий ввода в инпуты
-    document.querySelectorAll('[data-styles-field]').forEach(input => {
+    const inputFields = document.querySelectorAll('[data-calculation-field]');
+    inputFields.forEach(input => {
         input.addEventListener('input', function (e) {
+
             if (this.id === 'punchingCount') {
                 if (this.value.match(/[^0-9]/g)) {
                     this.value = this.value.replace(/[^0-9]/g, "");

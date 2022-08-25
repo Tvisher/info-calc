@@ -510,6 +510,11 @@ input[type="number"]:focus {
   }
 }
 
+.disabled-btn {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
 @media (max-width: 768px) {
   .calc__frame {
     width: 100%;

@@ -698,6 +698,11 @@ input[type=number]:focus {
   color: #999 !important;
 }
 
+.disabled-btn {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
 .result-list {
   margin-bottom: 40px;
   overflow-y: auto;
