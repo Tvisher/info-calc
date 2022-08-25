@@ -22,6 +22,7 @@ $(document).ready(function () {
     const discountPresentField = document.querySelector('#discountPresent');
 
     const addСalculationBtn = document.querySelector('#addСalculationBtn');
+    const printBtn = document.querySelector('#printBtn')
     const resultRenderContainer = document.querySelector('#resultRenderContainer');
 
     // OverlayScrollbars(resultRenderContainer, {});
@@ -134,7 +135,7 @@ $(document).ready(function () {
         let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
         resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
         if (onlyReturn) {
-            // clearValuesAfterCalculation();
+            clearValuesAfterCalculation();
             return resValue;
         }
         if (cuttingRes > 0 || punchingRes > 0) {
@@ -221,6 +222,14 @@ $(document).ready(function () {
         totalResContainer.innerHTML = res.toLocaleString('ru-RU');
     }
 
+    function isReadyToPrint(arr) {
+        if (arr.length > 0) {
+            document.querySelector('[data-res-block]').style.display = 'block'
+        } else {
+            document.querySelector('[data-res-block]').style.display = 'none'
+        }
+    }
+
     // Прослушка событий ввода в инпуты
     const inputFields = document.querySelectorAll('[data-calculation-field]');
     inputFields.forEach(input => {
@@ -249,6 +258,7 @@ $(document).ready(function () {
         fullSettlementList.push(calculationData);
         getTotalResult(fullSettlementList);
         generateCalculationItem(calculationData);
+        isReadyToPrint(fullSettlementList);
     });
 
     // проверка на включеную скидку
@@ -266,10 +276,11 @@ $(document).ready(function () {
             fullSettlementList = fullSettlementList.filter(item => item.id !== deletedItemId);
             deletedItem.parentNode.removeChild(deletedItem);
             getTotalResult(fullSettlementList);
+            isReadyToPrint(fullSettlementList);
         }
     });
 
-    document.querySelector('#printBtn').addEventListener('click', (e) => {
+    printBtn.addEventListener('click', (e) => {
         callPrint(fullSettlementList);
     });
 });

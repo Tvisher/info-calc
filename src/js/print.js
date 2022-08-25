@@ -4,7 +4,6 @@ import sum_letters from './numTostring.js';
 export default function callPrint(dataArr) {
     var windowPrint = window.open('', '', 'left=50,top=50,width=2000,height=2000,toolbar=0,scrollbars=1,status=0');
 
-
     const tableRows = dataArr.reduce((row, item) => {
         const { metalType,
             metalThickness,
@@ -15,9 +14,9 @@ export default function callPrint(dataArr) {
         const calculationItem = `
         <tr>
             <td>${metalType}, ${metalThickness} мм</td>
-            <td>${cuttingLength} м</td>
-            <td>${punchingCount} шт</td>
-            <td>${itemPrice} ₸</td>
+            <td>${cuttingLength.toLocaleString('ru-RU')} м</td>
+            <td>${punchingCount.toLocaleString('ru-RU')} шт</td>
+            <td>${itemPrice.toLocaleString('ru-RU')} ₸</td>
         </tr>`;
         row += calculationItem;
         return row;
@@ -55,7 +54,7 @@ export default function callPrint(dataArr) {
             </div>
         </div>
         <div class="print-wrapper__body">
-            <span class="title">Коммерческое предложение</span>
+            <span class="title">Коммерческое предложение от ${new Date().toLocaleDateString('ru-RU')}</span>
             <span class="descr">на лазерную резку металла</span>
 
             <span class="info">
