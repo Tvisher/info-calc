@@ -27,16 +27,6 @@ $(document).ready(function () {
     const printBtn = document.querySelector('#printBtn')
     const resultRenderContainer = document.querySelector('#resultRenderContainer');
 
-    const checkScroll = (e) => {
-        if (window.innerWidth >= 880) {
-            var instance = OverlayScrollbars(resultRenderContainer.parentElement, {});
-        } else {
-            instance && instance.destroy();
-        }
-    }
-    window.addEventListener('resize', checkScroll);
-    checkScroll();
-
     var discountPresent = 0;
     var minPrice = 0;
     var fullSettlementList = [];
@@ -231,6 +221,7 @@ $(document).ready(function () {
         totalResContainer.innerHTML = `${res.toLocaleString('ru-RU')}`;
     }
 
+    // Проверка на наличие расчётов в списке для отображения самого списка
     function isReadyToPrint(arr) {
         if (arr.length > 0) {
             document.querySelector('[data-res-block]').classList.add('show')
@@ -238,6 +229,19 @@ $(document).ready(function () {
             document.querySelector('[data-res-block]').classList.remove('show')
         }
     }
+
+    // Стилизация скрола секции со списком расчётов
+    (function () {
+        const checkScroll = (e) => {
+            if (window.innerWidth >= 880) {
+                var instance = OverlayScrollbars(resultRenderContainer.parentElement, {});
+            } else {
+                instance && instance.destroy();
+            }
+        }
+        window.addEventListener('resize', checkScroll);
+        checkScroll();
+    })()
 
     // Прослушка событий ввода в инпуты
     const inputFields = document.querySelectorAll('[data-calculation-field]');
@@ -289,22 +293,12 @@ $(document).ready(function () {
         }
     });
 
+    // отправка на печать готового результата расчёта
     printBtn.addEventListener('click', (e) => {
-        callPrint(fullSettlementList, {
+        callPrint({
+            fullSettlementList,
             clientName: clientNameInput.value.trim()
         });
     });
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
