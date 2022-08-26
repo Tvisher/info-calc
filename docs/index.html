@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sitename</title>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css?_v=20220825171421" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/main.min.css?_v=20220825171421">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/main.min.css">
     <script> </script>
 </head>
 
@@ -26,16 +26,14 @@
                         <div class="calc__inner-data">
                             <h1 class="calc__title">Просчет лазерной <span>резки металла</span></h1>
                             <label class="styles-input disabled-field">
-                                <input type="text" data-styles-field id="clientName" placeholder=" ">
-                                <span class="styles-text">В разработке</span>
-                                <!-- <span class="styles-text">Наименование клиента</span> -->
-                            </label>
-                            <label class="styles-input disabled-field">
                                 <input type="text" data-styles-field id="clientEmail" placeholder=" ">
                                 <span class="styles-text">В разработке</span>
                                 <!-- <span class="styles-text">Email</span> -->
                             </label>
-
+                            <label class="styles-input">
+                                <input type="text" data-styles-field id="clientName" placeholder=" ">
+                                <span class="styles-text">Наименование клиента</span>
+                            </label>
                             <select id="metalType"></select>
                             <input type="hidden" value="" id="metalTypeInput">
 
@@ -63,15 +61,15 @@
                             </div>
 
                             <div class="total-value-block">
-                                <div class="block__w">Стоимость:<span data-value-elem>0</span>₸</div>
+                                <div class="block__w">Стоимость:<span data-value-elem>0 ₸</span></div>
                             </div>
                             <button class="btn disabled-btn" id="addСalculationBtn">Добавить в расчет</button>
                         </div>
                         <div class="calc__outer-data" data-res-block>
                             <h2 class="calc__title">Полный<span>расчет</span></h2>
-                            <ul class="result-list" id="resultRenderContainer">
-                            </ul>
-                            <div class="result-list__wrap"></div>
+                            <div class="result-list__wrap">
+                                <ul class="result-list" id="resultRenderContainer"></ul>
+                            </div>
                             <div class="total-value-block">
                                 <div class="block__w">Итого:<span data-total-result>0</span>₸</div>
                             </div>
@@ -88,9 +86,9 @@
 
     <footer> </footer>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js?_v=20220825171421" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js?_v=20220825171421"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script src="./js/app.min.js?_v=20220825171421"></script>
+<script src="./js/app.min.js"></script>
 
 </html>

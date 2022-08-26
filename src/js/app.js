@@ -5,6 +5,8 @@ import './vendors/vendors.js';
 baseFunction.testWebP();
 
 $(document).ready(function () {
+    const clientNameInput = document.querySelector('#clientName');
+
     const metalTypeSelect = document.querySelector('#metalType');
     const metalThicknessSelect = document.querySelector('#thicknessSharpness');
 
@@ -25,7 +27,15 @@ $(document).ready(function () {
     const printBtn = document.querySelector('#printBtn')
     const resultRenderContainer = document.querySelector('#resultRenderContainer');
 
-    // OverlayScrollbars(resultRenderContainer, {});
+    const checkScroll = (e) => {
+        if (window.innerWidth >= 880) {
+            var instance = OverlayScrollbars(resultRenderContainer.parentElement, {});
+        } else {
+            instance && instance.destroy();
+        }
+    }
+    window.addEventListener('resize', checkScroll);
+    checkScroll();
 
     var discountPresent = 0;
     var minPrice = 0;
@@ -115,7 +125,6 @@ $(document).ready(function () {
             thicknessSharpnessInput.setAttribute('data-punching-price', punchingPrice);
             thicknessSharpnessInput.setAttribute('value', selectedSize);
 
-
             cuttingLength.closest('label').classList.remove('disabled-field');
             punchingCount.closest('label').classList.remove('disabled-field');
             makeСalculationResult();
@@ -135,7 +144,7 @@ $(document).ready(function () {
         let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
         resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
         if (onlyReturn) {
-            clearValuesAfterCalculation();
+            // clearValuesAfterCalculation();
             return resValue;
         }
         if (cuttingRes > 0 || punchingRes > 0) {
@@ -145,16 +154,16 @@ $(document).ready(function () {
         }
 
         if (isRegularCustomer.checked && result && (resValue > minPriceForComputing)) {
-            resContainer.innerHTML = `${result.toLocaleString('ru-RU')} - ${((result / 100) * discount).toLocaleString('ru-RU')} = ${resValue.toLocaleString('ru-RU')}`;
+            resContainer.innerHTML = `${result.toLocaleString('ru-RU')} - ${((result / 100) * discount).toLocaleString('ru-RU')} = ${resValue.toLocaleString('ru-RU')} ₸`;
         } else {
-            resContainer.innerHTML = resValue.toLocaleString('ru-RU');
+            resContainer.innerHTML = `${resValue.toLocaleString('ru-RU')} ₸`;
         }
     }
 
     // Функция очистки полей ввода и селектов после выполнения расчёта
     function clearValuesAfterCalculation() {
         addСalculationBtn.classList.add('disabled-btn');
-        resContainer.innerHTML = 0;
+        resContainer.innerHTML = `0 ₸`;
         isMinPrice.checked = false;
         disabledInputs();
         $('#metalType').val(null).trigger('change');
@@ -219,14 +228,14 @@ $(document).ready(function () {
     // Вычисление и вывод итоговой суммы всех расчётов
     function getTotalResult(arr) {
         const res = arr.reduce((sum, current) => sum + current.itemPrice, 0);
-        totalResContainer.innerHTML = res.toLocaleString('ru-RU');
+        totalResContainer.innerHTML = `${res.toLocaleString('ru-RU')}`;
     }
 
     function isReadyToPrint(arr) {
         if (arr.length > 0) {
-            document.querySelector('[data-res-block]').style.display = 'block'
+            document.querySelector('[data-res-block]').classList.add('show')
         } else {
-            document.querySelector('[data-res-block]').style.display = 'none'
+            document.querySelector('[data-res-block]').classList.remove('show')
         }
     }
 
@@ -281,7 +290,9 @@ $(document).ready(function () {
     });
 
     printBtn.addEventListener('click', (e) => {
-        callPrint(fullSettlementList);
+        callPrint(fullSettlementList, {
+            clientName: clientNameInput.value.trim()
+        });
     });
 });
 
