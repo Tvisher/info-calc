@@ -160,6 +160,7 @@ li {
 }
 
 .calc__outer-data {
+  transition: opacity 0.2s ease-in-out;
   display: none;
   &.show {
     display: flex;
@@ -339,6 +340,10 @@ li {
   }
 }
 
+#clientName ~ .styles-text {
+  color: #fff;
+}
+
 [data-styles-field]:not(:placeholder-shown) ~ .styles-text,
 [data-styles-field]:focus ~ .styles-text {
   background: #17171a;
@@ -481,7 +486,7 @@ input[type="number"]:focus {
   width: fit-content;
   margin-top: 30px;
   transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+    color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   &:hover {
     color: #fff;
   }
@@ -558,7 +563,7 @@ input[type="number"]:focus {
   margin-bottom: 40px;
 }
 .result-list {
-  padding-bottom: 40px;
+  // padding-bottom: 40px;
   overflow-y: auto;
   padding-right: 30px;
   .list-item {
