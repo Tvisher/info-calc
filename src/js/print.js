@@ -44,7 +44,7 @@ export default function callPrint(data) {
             </div>
         </div>
         <div class="print-wrapper__body">
-            <span class="title">Расчёт от ${new Date().toLocaleDateString('ru-RU')} а лазерную резку металла ${clienText}</span>
+            <span class="title">Расчёт от ${new Date().toLocaleDateString('ru-RU')} за лазерную резку металла ${clienText}</span>
             <table class="res-table">
                 <thead>
                     <tr>

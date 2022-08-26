@@ -134,7 +134,7 @@ $(document).ready(function () {
         let minPriceForComputing = isMinPrice.checked ? minPrice : 0;
         resValue = resValue > minPriceForComputing ? resValue : resValue = minPriceForComputing;
         if (onlyReturn) {
-            // clearValuesAfterCalculation();
+            clearValuesAfterCalculation();
             return resValue;
         }
         if (cuttingRes > 0 || punchingRes > 0) {
