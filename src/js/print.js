@@ -1,7 +1,7 @@
 import sum_letters from './numTostring.js';
 
 
-export default function callPrint(dataArr) {
+export default function callPrint(dataArr, clientData) {
     var windowPrint = window.open('', '', 'left=50,top=50,width=2000,height=2000,toolbar=0,scrollbars=1,status=0');
 
     const tableRows = dataArr.reduce((row, item) => {
@@ -21,6 +21,8 @@ export default function callPrint(dataArr) {
         row += calculationItem;
         return row;
     }, '');
+    const clientName = clientData.clientName;
+    const clienText = clientName.length > 0 ? `для клиента:<strong style="display:inline">«${clientName}»</strong>` : '';
 
     const finishResult = dataArr.reduce((sum, current) => sum + current.itemPrice, 0);
     const finishResultInWords = sum_letters(finishResult);
@@ -55,11 +57,10 @@ export default function callPrint(dataArr) {
         </div>
         <div class="print-wrapper__body">
             <span class="title">Коммерческое предложение от ${new Date().toLocaleDateString('ru-RU')}</span>
-            <span class="descr">на лазерную резку металла</span>
-
-            <span class="info">
-                Индивидуальный предприниматель Шляхов А. Н. направляет Вам на рассмотрение коммерческое предложение на лазерную резку металла, приведенное в таблице:
-            </span>
+            <span class="descr">на лазерную резку металла ${clienText}</span>
+            // <span class="info">
+            //     Индивидуальный предприниматель Шляхов А. Н. направляет Вам на рассмотрение коммерческое предложение на лазерную резку металла, приведенное в таблице:
+            // </span>
 
             <table class="res-table">
                 <thead>
