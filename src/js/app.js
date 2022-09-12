@@ -1,7 +1,7 @@
 'use strict';
 import * as baseFunction from './modules/functions.js';
-import callPrint from './print.js';
 import './vendors/vendors.js';
+import callPrint from './print.js';
 baseFunction.testWebP();
 
 $(document).ready(function () {
@@ -300,5 +300,10 @@ $(document).ready(function () {
             clientName: clientNameInput.value.trim()
         });
     });
-
+    window.addEventListener('beforeprint', (e) => {
+        callPrint({
+            fullSettlementList,
+            clientName: clientNameInput.value.trim()
+        });
+    });
 });

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoPlus - просчёт лазерной резки металла</title>
-    <link rel="stylesheet" href="./css/main.min.css?_v=20220826172719">
+    <link rel="stylesheet" href="./css/main.min.css">
     <script> </script>
 </head>
 
@@ -14,7 +14,7 @@
     <header> </header>
 
     <main>
-        <section class="calc">
+        <section class="calc no-print">
             <div class="calc__frame"></div>
             <div class="calc__content">
                 <div class="container">
@@ -81,10 +81,48 @@
                 </div>
             </div>
         </section>
+        <section class="print">
+            <div class="print-wrapper" style="max-width: 1024px; width: 100%; margin:auto">
+                <div class="print-wrapper__head">
+                    <div class="comp-data">
+                        <span> ИП «Шляхова А.Н.»</span>
+                        <span> ИИН 780402302789</span>
+                        <span> ул. Бажова, 95</span>
+                    </div>
+                    <div class="comp-logo">
+                        <img src="./img/printLogo.png"" alt="">
+                    </div>
+                    <div class=" comp-data r">
+                        <span> 8 7232 700 350</span>
+                        <span> 8 705 155 99 11</span>
+                        <span> www.infoplus.kz</span>
+                    </div>
+                </div>
+                <div class="print-wrapper__body">
+                    <span class="title" data-print-date></span>
+                    <table class="res-table">
+                        <thead>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Длинна реза</th>
+                                <th>Пробивка</th>
+                                <th>Стоимость</th>
+                            </tr>
+                        </thead>
+                        <tbody data-render-rows></tbody>
+                    </table>
+                    <div class="result-text" data-result-text></div>
+                    <div class="print-wrapper__head" style="margin-top:60px">
+                        <div class="comp-data">Шляхов А. Н. __________</div>
+                        <div class="comp-data" style="padding-right:60px">М.П.</div>
+                    </div>
+                </div>
+            </div>`;
+        </section>
     </main>
 
     <footer> </footer>
 </body>
-<script src="./js/app.min.js?_v=20220826172719"></script>
+<script src="./js/app.min.js"></script>
 
 </html>
